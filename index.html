@@ -106,22 +106,28 @@
         .box-add-lista input { margin-bottom: 0; }
         .box-add-lista button { width: 60px; margin-bottom: 0; font-size: 24px; padding: 0; }
 
-        /* ================= ESTILO DO OLHO DA SENHA ================= */
+        /* ================= ESTILO DO GATINHO DA SENHA ================= */
         .caixa-senha {
-            position: relative; /* Coloca o olho flutuando em cima da caixa */
-            width: 100%;
-        }
-        .caixa-senha input {
-            width: calc(100% - 24px); 
-            padding-right: 40px !important; /* Espaço extra na direita para o olho */
+            position: relative; 
+            display: flex; 
+            align-items: center;
+            width: 100%; 
             margin-bottom: 15px;
         }
-        .btn-olho {
-            position: absolute; right: 5px; top: 12px;
-            background: none; border: none; color: var(--texto-secundario);
-            font-size: 1.2rem; cursor: pointer; width: auto; padding: 5px; margin: 0;
+        .caixa-senha input {
+            width: 100% !important; /* Ajusta ao tamanho do container para não vazar */
+            box-sizing: border-box; /* Evita que o padding quebre o layout */
+            padding-right: 80px !important; /* Dá bastante espaço para as patinhas do gato não encostarem no texto */
+            margin-bottom: 0 !important;
         }
-        .btn-olho:hover { color: var(--cor-destaque); opacity: 1; }
+        .btn-olho {
+            position: absolute; 
+            right: 15px; /* Mantém o gato colado na parede direita do campo */
+            background: none; border: none; 
+            font-size: 1.3rem; cursor: pointer; width: auto; padding: 0; margin: 0;
+            transition: transform 0.2s;
+        }
+        .btn-olho:hover { transform: scale(1.15); }
     </style>
 </head>
 <body>
@@ -150,7 +156,7 @@
         <input type="email" id="email" placeholder="Seu e-mail">
         <div class="caixa-senha">
             <input type="password" id="senha" placeholder="Sua senha">
-            <button id="btnMostrarSenha" type="button" class="btn-olho" title="Mostrar/Ocultar Senha">👁️</button>
+            <button id="btnMostrarSenha" type="button" class="btn-olho" title="Mostrar/Ocultar Senha">🐾🐱🐾</button>
         </div>
         <button id="btnEntrar" class="btn-principal">Entrar</button>
         <button id="btnRegistrar" class="btn-secundario">Criar Conta</button>
@@ -297,17 +303,17 @@
       }
   });
 
-  // --- LÓGICA DO OLHO DA SENHA ---
+  // --- LÓGICA DO GATINHO DA SENHA ---
   const inputSenha = document.getElementById("senha");
   const btnMostrarSenha = document.getElementById("btnMostrarSenha");
 
   btnMostrarSenha.addEventListener("click", () => {
       if (inputSenha.type === "password") {
           inputSenha.type = "text";
-          btnMostrarSenha.innerText = "🙈";
+          btnMostrarSenha.innerText = "😺"; // Olho aberto
       } else {
           inputSenha.type = "password";
-          btnMostrarSenha.innerText = "👁️";
+          btnMostrarSenha.innerText = "🐾🐱🐾"; // Patinhas tapando
       }
   });
 
