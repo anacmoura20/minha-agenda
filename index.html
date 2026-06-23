@@ -41,7 +41,7 @@
         #hora-atual { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--texto-principal); margin: 0; line-height: 1.1; margin-bottom: 8px; }
         #data-atual { font-size: 0.9rem; color: var(--texto-secundario); text-transform: capitalize; letter-spacing: 0.5px; }
 
-        input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], select { 
+        input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], input[type="url"], select { 
             width: calc(100% - 24px); padding: 12px; margin-bottom: 15px; border: 1px solid var(--cor-borda); border-radius: 10px;
             background-color: var(--bg-page); color: var(--texto-principal); font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s;
         }
@@ -60,6 +60,12 @@
         }
         .info-item { display: flex; flex-direction: column; flex-grow: 1; margin-left: 10px; }
         .data-hora-badge { font-size: 0.75rem; color: var(--cor-destaque); margin-top: 4px; }
+        
+        /* Etiquetas de Categoria na Wishlist */
+        .categoria-badge { font-size: 0.7rem; color: var(--cor-destaque); border: 1px solid var(--cor-destaque); padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: 4px; margin-right: 5px; }
+        .link-wishlist { color: var(--texto-secundario); text-decoration: none; font-size: 1.1rem; margin-left: 5px; }
+        .link-wishlist:hover { color: var(--cor-destaque); }
+
         .riscado { text-decoration: line-through; color: var(--texto-secundario); opacity: 0.6; }
         .btn-excluir { background: none; border: none; color: var(--texto-secundario); font-size: 1.5rem; cursor: pointer; width: auto; padding: 0 5px; margin-bottom: 0;}
         .btn-excluir:hover { color: var(--cor-destaque); opacity: 1; }
@@ -142,11 +148,17 @@
     <!-- ================= TELA 2: WISHLIST ================= -->
     <div id="telaWishlist" class="container escondido tela-app">
         <h2>🛍️ Minha Wishlist</h2>
-        <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Tudo que eu mereço!</p>
+        <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Tudo o que eu quero comprar!</p>
         
-        <div class="box-add-lista">
-            <input type="text" id="novaWishlist" placeholder="O que você deseja?">
-            <button id="btnAdicionarWishlist" class="btn-principal">+</button>
+        <div style="margin-bottom: 15px;">
+            <input type="text" id="novaWishlist" placeholder="O que você deseja? (Obrigatório)">
+            
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="categoriaWishlist" placeholder="Categoria (ex: Roupas)" style="flex-grow: 1;">
+                <input type="url" id="linkWishlist" placeholder="Link da loja (Opcional)" style="flex-grow: 2;">
+            </div>
+            
+            <button id="btnAdicionarWishlist" class="btn-principal">Adicionar à Wishlist</button>
         </div>
         <ul id="listaWishlist"></ul>
     </div>
@@ -213,12 +225,8 @@
 
   // --- NAVEGAÇÃO ENTRE AS TELAS ---
   function navegarPara(telaId, btnClicadoId) {
-      // Esconde todas as telas
       document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido"));
-      // Remove o status 'ativo' de todos os botões do menu
       document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove("ativo"));
-      
-      // Mostra a tela certa e marca o botão
       document.getElementById(telaId).classList.remove("escondido");
       document.getElementById(btnClicadoId).classList.add("ativo");
       fecharSidebar();
@@ -229,116 +237,4 @@
 
   // --- LOGIN E SAIR ---
   document.querySelectorAll(".btn-sair").forEach(btn => btn.addEventListener("click", () => signOut(auth)));
-  document.getElementById("btnRegistrar").addEventListener("click", async () => { try { await createUserWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("senha").value); alert("Conta criada!"); } catch (e) { alert("Erro: " + e.message); } });
-  document.getElementById("btnEntrar").addEventListener("click", async () => { try { await signInWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("senha").value); } catch (e) { alert("Erro ao entrar!"); } });
-
-  onAuthStateChanged(auth, (user) => {
-      if (user) {
-          document.getElementById("telaLogin").classList.add("escondido"); 
-          navegarPara("telaAgenda", "navAgenda"); // Abre a Agenda por padrão
-          document.getElementById("tituloAgenda").textContent = `Agenda de ${user.email.split('@')[0]}`;
-          carregarTudo(user.uid);
-      } else {
-          document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido"));
-          document.getElementById("telaLogin").classList.remove("escondido"); 
-      }
-  });
-
-  // --- MODAL DA AGENDA ---
-  const modalNovoItem = document.getElementById("modalNovoItem");
-  document.getElementById("btnAbrirModal").addEventListener("click", () => { document.getElementById("nomeItemModal").value = ""; document.getElementById("dataHoraModal").value = ""; modalNovoItem.classList.remove("escondido"); });
-  document.getElementById("btnCancelarModal").addEventListener("click", () => { modalNovoItem.classList.add("escondido"); });
-
-  // --- CARREGAR DADOS DO BANCO ---
-  async function carregarTudo(userId) {
-    const listaComp = document.getElementById("listaCompromissos"), listaTar = document.getElementById("listaTarefas");
-    const listaWish = document.getElementById("listaWishlist"), listaViagem = document.getElementById("listaViagem");
-    
-    listaComp.innerHTML = ""; listaTar.innerHTML = ""; listaWish.innerHTML = ""; listaViagem.innerHTML = "";
-    itensNaMemoria = []; 
-    
-    const querySnapshot = await getDocs(query(collection(db, "itens"), where("userId", "==", userId)));
-    let listaTemporaria = []; querySnapshot.forEach((doc) => listaTemporaria.push({ id: doc.id, ...doc.data() }));
-    listaTemporaria.sort((a, b) => (a.concluida === b.concluida) ? 0 : a.concluida ? 1 : -1);
-    
-    listaTemporaria.forEach((item) => {
-        itensNaMemoria.push(item); 
-        let novoElemento = document.createElement("li");
-        
-        // Só exibe data se for tarefa ou compromisso
-        let htmlData = "";
-        if(item.tipo === "compromisso" || item.tipo === "tarefa") {
-            let d = item.dataHoraLembrete ? new Date(item.dataHoraLembrete).toLocaleString('pt-BR', {day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}) : "Sem horário";
-            htmlData = `<span class="data-hora-badge">🕒 ${d}</span>`;
-        }
-
-        novoElemento.innerHTML = `
-            <input type="checkbox" class="check-status" data-id="${item.id}" data-status="${item.concluida}" ${item.concluida ? "checked" : ""}>
-            <div class="info-item ${item.concluida ? "riscado" : ""}">
-                <span>${item.nome}</span>
-                ${htmlData}
-            </div>
-            <button class="btn-excluir" data-id="${item.id}">×</button>
-        `;
-
-        // Distribui para a lista correta dependendo da Etiqueta!
-        if (item.tipo === "compromisso") listaComp.appendChild(novoElemento);
-        else if (item.tipo === "tarefa") listaTar.appendChild(novoElemento);
-        else if (item.tipo === "wishlist") listaWish.appendChild(novoElemento);
-        else if (item.tipo === "viagem") listaViagem.appendChild(novoElemento);
-    });
-  }
-
-  // --- FUNÇÃO GLOBAL PARA SALVAR ---
-  async function salvarQualquerItem(tipo, nome, hora = null) {
-      const user = auth.currentUser; if (!user || nome === "") return;
-      try {
-          await addDoc(collection(db, "itens"), { nome: nome, tipo: tipo, concluida: false, dataHoraLembrete: hora, userId: user.uid });
-          carregarTudo(user.uid); 
-      } catch (e) { console.error(e); }
-  }
-
-  // Salvar pela Modal (Agenda)
-  document.getElementById("btnSalvarModal").addEventListener("click", () => {
-      salvarQualquerItem(document.getElementById("tipoItemModal").value, document.getElementById("nomeItemModal").value.trim(), document.getElementById("dataHoraModal").value);
-      modalNovoItem.classList.add("escondido");
-  });
-
-  // Salvar pela Wishlist
-  document.getElementById("btnAdicionarWishlist").addEventListener("click", () => {
-      salvarQualquerItem("wishlist", document.getElementById("novaWishlist").value.trim());
-      document.getElementById("novaWishlist").value = "";
-  });
-
-  // Salvar pela Viagem
-  document.getElementById("btnAdicionarViagem").addEventListener("click", () => {
-      salvarQualquerItem("viagem", document.getElementById("novaViagem").value.trim());
-      document.getElementById("novaViagem").value = "";
-  });
-
-  // --- CHECKBOX E EXCLUIR (Funciona pra todas as listas!) ---
-  document.addEventListener("click", async (event) => {
-      const user = auth.currentUser; if (!user) return;
-      if (event.target.classList.contains("btn-excluir")) {
-          if (confirm("Excluir item?")) { await deleteDoc(doc(db, "itens", event.target.getAttribute("data-id"))); carregarTudo(user.uid); }
-      }
-      if (event.target.classList.contains("check-status")) {
-          await updateDoc(doc(db, "itens", event.target.getAttribute("data-id")), { concluida: !(event.target.getAttribute("data-status") === "true") });
-          carregarTudo(user.uid);
-      }
-  });
-
-  // --- ALARME ---
-  setInterval(() => {
-      const agora = new Date();
-      const dataAtualFormatada = agora.getFullYear() + "-" + String(agora.getMonth() + 1).padStart(2, '0') + "-" + String(agora.getDate()).padStart(2, '0') + "T" + String(agora.getHours()).padStart(2, '0') + ":" + String(agora.getMinutes()).padStart(2, '0');
-      itensNaMemoria.forEach(item => {
-          if (!item.concluida && item.dataHoraLembrete === dataAtualFormatada) {
-              alert(`🔔 LEMBRETE: ${item.tipo.toUpperCase()}!\n\nVocê tem algo agendado agora: ${item.nome}`);
-          }
-      });
-  }, 60000);
-</script>
-
-</body>
-</html>
+  document.getElementById("btnRegistrar").addEventListener("click", async () => { try { await createUserWithEmailAndPassword(auth, document.getElementById("email").value, docum
