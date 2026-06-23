@@ -113,6 +113,42 @@
         .btn-fechar-menu { background: transparent; border: none; font-size: 28px; color: var(--texto-principal); cursor: pointer; float: right; width: auto; padding: 0; margin-top: -5px; }
         .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); opacity: 0; visibility: hidden; transition: opacity 0.3s; z-index: 999; }
         .overlay.ativa { opacity: 1; visibility: visible; }
+                /* ================= CHECKBOX CUSTOMIZADO ================= */
+        /* 1. Remove o padrão feio do navegador e desenha um círculo */
+        input[type="checkbox"].check-status {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 26px;
+            height: 26px;
+            border: 2px solid var(--cor-destaque);
+            border-radius: 50%; /* Deixa ele perfeitamente redondo */
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            transition: all 0.3s ease;
+            flex-shrink: 0; /* Impede que ele seja esmagado pelo texto */
+            background-color: transparent;
+            margin: 0;
+        }
+
+        /* 2. O que acontece quando ele está marcado (Concluído) */
+        input[type="checkbox"].check-status:checked {
+            background-color: var(--cor-destaque);
+            border-color: var(--cor-destaque);
+        }
+
+        /* 3. O ícone de V (Check) desenhado com CSS puro (sem precisar de imagens) */
+        input[type="checkbox"].check-status:checked::after {
+            content: '';
+            width: 6px;
+            height: 12px;
+            border: solid var(--bg-page);
+            border-width: 0 3px 3px 0;
+            transform: rotate(45deg);
+            margin-bottom: 2px; /* Ajuste fino para centralizar o Vzinho */
+        }
+
     </style>
 </head>
 <body>
