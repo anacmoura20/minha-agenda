@@ -9,38 +9,75 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
     <style>
-        /* O CSS continua o mesmo */
-        :root { --bg-page: #121212; --bg-card: #1E1E1E; --cor-destaque: #FF00E5; --texto-principal: #EAEAEA; --texto-secundario: #A0A0A0; --cor-borda: #333333; --sombra: rgba(255, 0, 229, 0.1); }
-        body.tema-claro { --bg-page: #FEF6F6; --bg-card: #FFFFFF; --cor-destaque: #FF8FAB; --texto-principal: #4A4A4A; --texto-secundario: #888888; --cor-borda: #FADADD; --sombra: rgba(0, 0, 0, 0.05); }
-        body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: var(--texto-principal); margin: 0; padding: 20px; padding-bottom: 80px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; transition: background-color 0.3s, color 0.3s; }
-        .container { max-width: 450px; width: 100%; background: var(--bg-card); padding: 30px; border-radius: 16px; border: 1px solid var(--cor-borda); box-shadow: 0 0 25px var(--sombra); transition: background-color 0.3s; }
+        :root {
+            --bg-page: #121212; --bg-card: #1E1E1E; --cor-destaque: #FF00E5;     
+            --texto-principal: #EAEAEA; --texto-secundario: #A0A0A0; 
+            --cor-borda: #333333; --sombra: rgba(255, 0, 229, 0.1);
+        }
+        body.tema-claro {
+            --bg-page: #FEF6F6; --bg-card: #FFFFFF; --cor-destaque: #FF8FAB;     
+            --texto-principal: #4A4A4A; --texto-secundario: #888888; 
+            --cor-borda: #FADADD; --sombra: rgba(0, 0, 0, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: var(--texto-principal);
+            margin: 0; padding: 20px; padding-bottom: 80px;
+            display: flex; justify-content: center; align-items: flex-start;
+            min-height: 100vh; transition: background-color 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 450px; width: 100%; background: var(--bg-card); padding: 30px;
+            border-radius: 16px; border: 1px solid var(--cor-borda);
+            box-shadow: 0 0 25px var(--sombra); transition: background-color 0.3s;
+        }
+        
         h2, h3 { text-align: center; color: var(--cor-destaque); margin-top: 0; }
         h3 { font-size: 1.2rem; text-align: left; margin-top: 25px; border-bottom: 1px solid var(--cor-borda); padding-bottom: 5px;}
+
+        /* Relógio */
         #bloco-relogio { text-align: center; margin-bottom: 25px; }
         #hora-atual { font-family: 'Playfair Display', serif; font-size: 3.5rem; color: var(--texto-principal); margin: 0; line-height: 1.1; margin-bottom: 8px; }
         #data-atual { font-size: 0.9rem; color: var(--texto-secundario); text-transform: capitalize; letter-spacing: 0.5px; }
-        input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], input[type="url"], select { width: calc(100% - 24px); padding: 12px; margin-bottom: 15px; border: 1px solid var(--cor-borda); border-radius: 10px; background-color: var(--bg-page); color: var(--texto-principal); font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s; }
+
+        input[type="text"], input[type="email"], input[type="password"], input[type="datetime-local"], input[type="url"], select { 
+            width: calc(100% - 24px); padding: 12px; margin-bottom: 15px; border: 1px solid var(--cor-borda); border-radius: 10px;
+            background-color: var(--bg-page); color: var(--texto-principal); font-family: 'Inter', sans-serif; transition: background-color 0.3s, color 0.3s;
+        }
         input:focus, select:focus { outline: none; border-color: var(--cor-destaque); }
+
         button { padding: 12px; font-weight: 700; border: none; cursor: pointer; border-radius: 10px; width: 100%; margin-bottom: 10px; transition: all 0.2s; }
         button:disabled { opacity: 0.5; cursor: not-allowed; }
         .btn-principal { background-color: var(--cor-destaque); color: var(--bg-page); }
         .btn-secundario { background-color: transparent; border: 1px solid var(--cor-destaque); color: var(--cor-destaque); }
         .btn-sair { background-color: transparent; color: var(--texto-secundario); margin-top: 20px; font-weight: 400; }
         button:hover:not(:disabled) { opacity: 0.85; }
+
         ul { list-style-type: none; padding: 0; margin-top: 10px; }
-        li { padding: 12px; border: 1px solid var(--cor-borda); border-radius: 10px; display: flex; align-items: center; justify-content: space-between; margin-bottom: 10px; background-color: var(--bg-page); transition: background-color 0.3s; }
+        li {
+            padding: 12px; border: 1px solid var(--cor-borda); border-radius: 10px; display: flex; align-items: center; 
+            justify-content: space-between; margin-bottom: 10px; background-color: var(--bg-page); transition: background-color 0.3s;
+        }
         .info-item { display: flex; flex-direction: column; flex-grow: 1; margin-left: 10px; }
         .data-hora-badge { font-size: 0.75rem; color: var(--cor-destaque); margin-top: 4px; }
+        
+        /* Etiquetas de Categoria na Wishlist */
         .categoria-badge { font-size: 0.7rem; color: var(--cor-destaque); border: 1px solid var(--cor-destaque); padding: 2px 6px; border-radius: 10px; display: inline-block; margin-top: 4px; margin-right: 5px; }
         .link-wishlist { color: var(--texto-secundario); text-decoration: none; font-size: 1.1rem; margin-left: 5px; }
         .link-wishlist:hover { color: var(--cor-destaque); }
+
         .riscado { text-decoration: line-through; color: var(--texto-secundario); opacity: 0.6; }
         .btn-excluir { background: none; border: none; color: var(--texto-secundario); font-size: 1.5rem; cursor: pointer; width: auto; padding: 0 5px; margin-bottom: 0;}
         .btn-excluir:hover { color: var(--cor-destaque); opacity: 1; }
         .escondido { display: none !important; }
+
+        /* Botão Flutuante */
         .btn-flutuante { position: fixed; bottom: 30px; right: 30px; width: 60px; height: 60px; border-radius: 50%; background-color: var(--cor-destaque); color: var(--bg-page); font-size: 35px; line-height: 1; text-align: center; border: none; box-shadow: 0 5px 15px rgba(0,0,0,0.3); cursor: pointer; z-index: 100; transition: transform 0.2s; display: flex; justify-content: center; align-items: center; padding: 0; }
         .btn-flutuante:hover { transform: scale(1.1); }
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.7); display: flex; justify-content: center; align-items: center; z-index: 2000; opacity: 1; transition: opacity 0.3s; }
+
+        /* Menu Lateral */
         .btn-abrir-menu { position: absolute; top: 20px; left: 20px; background: transparent; border: none; font-size: 30px; color: var(--texto-principal); cursor: pointer; width: auto; padding: 0; }
         .sidebar { position: fixed; top: 0; left: -280px; width: 240px; height: 100vh; background: var(--bg-card); box-shadow: 2px 0 15px rgba(0,0,0,0.5); transition: left 0.3s ease; z-index: 1000; padding: 20px; border-right: 1px solid var(--cor-borda); overflow-y: auto; }
         .sidebar.aberta { left: 0; }
@@ -48,87 +85,339 @@
         .btn-fechar-menu { background: transparent; border: none; font-size: 28px; color: var(--texto-principal); cursor: pointer; float: right; width: auto; padding: 0; margin-top: -5px; }
         .overlay { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.6); opacity: 0; visibility: hidden; transition: opacity 0.3s; z-index: 999; }
         .overlay.ativa { opacity: 1; visibility: visible; }
+
+        /* Estilo dos Botões de Navegação do Menu */
         .btn-nav { background: transparent; color: var(--texto-principal); border: none; text-align: left; font-weight: 500; border-radius: 8px; font-size: 1.1rem; }
         .btn-nav:hover { background: var(--bg-page); color: var(--cor-destaque); }
         .btn-nav.ativo { background: var(--cor-borda); color: var(--cor-destaque); border-left: 4px solid var(--cor-destaque); }
-        input[type="checkbox"].check-status { appearance: none; -webkit-appearance: none; width: 26px; height: 26px; border: 2px solid var(--cor-destaque); border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease; flex-shrink: 0; background-color: transparent; margin: 0; }
+
+        /* Checkbox Customizado */
+        input[type="checkbox"].check-status {
+            appearance: none; -webkit-appearance: none; width: 26px; height: 26px; border: 2px solid var(--cor-destaque);
+            border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; transition: all 0.3s ease;
+            flex-shrink: 0; background-color: transparent; margin: 0;
+        }
         input[type="checkbox"].check-status:checked { background-color: var(--cor-destaque); border-color: var(--cor-destaque); }
-        input[type="checkbox"].check-status:checked::after { content: ''; width: 6px; height: 12px; border: solid var(--bg-page); border-width: 0 3px 3px 0; transform: rotate(45deg); margin-bottom: 2px; }
+        input[type="checkbox"].check-status:checked::after {
+            content: ''; width: 6px; height: 12px; border: solid var(--bg-page); border-width: 0 3px 3px 0; transform: rotate(45deg); margin-bottom: 2px;
+        }
+        
         .box-add-lista { display: flex; gap: 10px; margin-bottom: 15px; }
         .box-add-lista input { margin-bottom: 0; }
         .box-add-lista button { width: 60px; margin-bottom: 0; font-size: 24px; padding: 0; }
+
+        /* ================= ESTILO DO OLHO DA SENHA ================= */
+        .caixa-senha {
+            position: relative; /* Coloca o olho flutuando em cima da caixa */
+            width: 100%;
+        }
+        .caixa-senha input {
+            width: calc(100% - 24px); 
+            padding-right: 40px !important; /* Espaço extra na direita para o olho */
+            margin-bottom: 15px;
+        }
+        .btn-olho {
+            position: absolute; right: 5px; top: 12px;
+            background: none; border: none; color: var(--texto-secundario);
+            font-size: 1.2rem; cursor: pointer; width: auto; padding: 5px; margin: 0;
+        }
+        .btn-olho:hover { color: var(--cor-destaque); opacity: 1; }
     </style>
 </head>
 <body>
-    <!-- O HTML continua o mesmo -->
+
+    <!-- BOTAO MENU -->
     <button id="btnAbrirMenu" class="btn-abrir-menu">☰</button>
-    <div id="sidebar" class="sidebar"> <button id="btnFecharMenu" class="btn-fechar-menu">×</button> <h3>📱 Navegação</h3> <button id="navAgenda" class="btn-nav ativo">📅 Dashboard</button> <button id="navWishlist" class="btn-nav">🛍️ Wishlist</button> <button id="navViagem" class="btn-nav">✈️ Checklist Viagem</button> <h3>⚙️ Temas</h3> <button id="btnTemaEscuro" class="btn-secundario">🌙 Dark Neon</button> <button id="btnTemaClaro" class="btn-principal">🌸 Pink Light</button> </div>
+
+    <!-- MENU LATERAL -->
+    <div id="sidebar" class="sidebar">
+        <button id="btnFecharMenu" class="btn-fechar-menu">×</button>
+        
+        <h3>📱 Navegação</h3>
+        <button id="navAgenda" class="btn-nav ativo">📅 Dashboard</button>
+        <button id="navWishlist" class="btn-nav">🛍️ Wishlist</button>
+        <button id="navViagem" class="btn-nav">✈️ Checklist Viagem</button>
+
+        <h3>⚙️ Temas</h3>
+        <button id="btnTemaEscuro" class="btn-secundario">🌙 Dark Neon</button>
+        <button id="btnTemaClaro" class="btn-principal">🌸 Pink Light</button>
+    </div>
     <div id="overlay" class="overlay"></div>
-    <div id="telaLogin" class="container"> <h2>Login</h2> <input type="email" id="email" placeholder="Seu e-mail"> <input type="password" id="senha" placeholder="Sua senha"> <button id="btnEntrar" class="btn-principal">Entrar</button> <button id="btnRegistrar" class="btn-secundario">Criar Conta</button> </div>
-    <div id="telaAgenda" class="container escondido tela-app"> <h2 id="tituloAgenda">Sua Agenda</h2> <div id="bloco-relogio"><div id="hora-atual">00:00</div><div id="data-atual">Carregando...</div></div> <h3>⏰ Compromissos</h3><ul id="listaCompromissos"></ul> <h3>✅ Tarefas do Dia</h3><ul id="listaTarefas"></ul> <button class="btn-sair">Sair da Conta</button> <button id="btnAbrirModal" class="btn-flutuante">+</button> </div>
-    <div id="telaWishlist" class="container escondido tela-app"> <h2>🛍️ Minha Wishlist</h2> <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Tudo o que eu quero comprar!</p> <div style="margin-bottom: 15px;"> <input type="text" id="novaWishlist" placeholder="O que você deseja? (Obrigatório)"> <div style="display: flex; gap: 10px;"> <input type="text" id="categoriaWishlist" placeholder="Categoria (ex: Roupas)" style="flex-grow: 1;"> <input type="url" id="linkWishlist" placeholder="Link da loja (Opcional)" style="flex-grow: 2;"> </div> <button id="btnAdicionarWishlist" class="btn-principal">Adicionar à Wishlist</button> </div> <ul id="listaWishlist"></ul> </div>
-    <div id="telaViagem" class="container escondido tela-app"> <h2>✈️ Mala de Viagem</h2> <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Não esqueça de nada!</p> <div class="box-add-lista"> <input type="text" id="novaViagem" placeholder="Item para colocar na mala..."> <button id="btnAdicionarViagem" class="btn-principal">+</button> </div> <ul id="listaViagem"></ul> </div>
-    <div id="modalNovoItem" class="modal-overlay escondido"> <div class="container"> <h2 style="margin-bottom: 20px;">Novo Item</h2> <select id="tipoItemModal"> <option value="compromisso">⏰ Compromisso</option> <option value="tarefa">✅ Tarefa</option> </select> <input type="text" id="nomeItemModal" placeholder="O que você precisa fazer/lembrar?"> <input type="datetime-local" id="dataHoraModal"> <button id="btnSalvarModal" class="btn-principal">Salvar</button> <button id="btnCancelarModal" class="btn-secundario">Cancelar</button> </div> </div>
+
+    <!-- TELA LOGIN -->
+    <div id="telaLogin" class="container">
+        <h2>Login</h2>
+        <input type="email" id="email" placeholder="Seu e-mail">
+        <div class="caixa-senha">
+            <input type="password" id="senha" placeholder="Sua senha">
+            <button id="btnMostrarSenha" type="button" class="btn-olho" title="Mostrar/Ocultar Senha">👁️</button>
+        </div>
+        <button id="btnEntrar" class="btn-principal">Entrar</button>
+        <button id="btnRegistrar" class="btn-secundario">Criar Conta</button>
+    </div>
+
+    <!-- ================= TELA 1: AGENDA (DASHBOARD) ================= -->
+    <div id="telaAgenda" class="container escondido tela-app">
+        <h2 id="tituloAgenda">Sua Agenda</h2>
+        <div id="bloco-relogio"><div id="hora-atual">00:00</div><div id="data-atual">Carregando...</div></div>
+        <h3>⏰ Compromissos</h3><ul id="listaCompromissos"></ul>
+        <h3>✅ Tarefas do Dia</h3><ul id="listaTarefas"></ul>
+        <button class="btn-sair">Sair da Conta</button>
+        <button id="btnAbrirModal" class="btn-flutuante">+</button>
+    </div>
+
+    <!-- ================= TELA 2: WISHLIST ================= -->
+    <div id="telaWishlist" class="container escondido tela-app">
+        <h2>🛍️ Minha Wishlist</h2>
+        <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Tudo o que eu quero comprar!</p>
+        
+        <div style="margin-bottom: 15px;">
+            <input type="text" id="novaWishlist" placeholder="O que você deseja? (Obrigatório)">
+            
+            <div style="display: flex; gap: 10px;">
+                <input type="text" id="categoriaWishlist" placeholder="Categoria (ex: Roupas)" style="flex-grow: 1;">
+                <input type="url" id="linkWishlist" placeholder="Link da loja (Opcional)" style="flex-grow: 2;">
+            </div>
+            
+            <button id="btnAdicionarWishlist" class="btn-principal">Adicionar à Wishlist</button>
+        </div>
+        <ul id="listaWishlist"></ul>
+    </div>
+
+    <!-- ================= TELA 3: CHECKLIST DE VIAGEM ================= -->
+    <div id="telaViagem" class="container escondido tela-app">
+        <h2>✈️ Mala de Viagem</h2>
+        <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Não esqueça de nada!</p>
+        
+        <div class="box-add-lista">
+            <input type="text" id="novaViagem" placeholder="Item para colocar na mala...">
+            <button id="btnAdicionarViagem" class="btn-principal">+</button>
+        </div>
+        <ul id="listaViagem"></ul>
+    </div>
+
+    <!-- MODAL DE ADICIONAR (Apenas para Agenda) -->
+    <div id="modalNovoItem" class="modal-overlay escondido">
+        <div class="container">
+            <h2 style="margin-bottom: 20px;">Novo Item</h2>
+            <select id="tipoItemModal">
+                <option value="compromisso">⏰ Compromisso</option>
+                <option value="tarefa">✅ Tarefa</option>
+            </select>
+            <input type="text" id="nomeItemModal" placeholder="O que você precisa fazer/lembrar?">
+            <input type="datetime-local" id="dataHoraModal">
+            <button id="btnSalvarModal" class="btn-principal">Salvar</button>
+            <button id="btnCancelarModal" class="btn-secundario">Cancelar</button>
+        </div>
+    </div>
 
 <script type="module">
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getFirestore, collection, addDoc, getDocs, doc, deleteDoc, updateDoc, query, where } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
 
-  // SUAS CHAVES DO FIREBASE (VERIFIQUE SE ESTÃO CORRETAS)
   const firebaseConfig = {
-      apiKey: "AIzaSyClPqOh6AiRTi8Dca0qT0CM4vHwGFWm35k", 
-      authDomain: "app-agenda-19147.firebaseapp.com",
-      projectId: "app-agenda-19147", 
-      storageBucket: "app-agenda-19147.firebasestorage.app",
-      messagingSenderId: "1039485282986", 
-      appId: "1:1039485282986:web:e4b68ce7a10a9f96243ed3"
+      apiKey: "AIzaSyClPqOh6AiRTi8Dca0qT0CM4vHwGFWm35k", authDomain: "app-agenda-19147.firebaseapp.com",
+      projectId: "app-agenda-19147", storageBucket: "app-agenda-19147.firebasestorage.app",
+      messagingSenderId: "1039485282986", appId: "1:1039485282986:web:e4b68ce7a10a9f96243ed3"
   };
 
   const app = initializeApp(firebaseConfig); const db = getFirestore(app); const auth = getAuth(app);
   let itensNaMemoria = []; 
 
-  // --- LÓGICA DE LOGIN ATUALIZADA ---
+  // --- RELÓGIO ---
+  function atualizarRelogio() {
+      const agora = new Date();
+      document.getElementById("hora-atual").innerText = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
+      document.getElementById("data-atual").innerText = agora.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' });
+  }
+  setInterval(atualizarRelogio, 1000); atualizarRelogio();
+
+  // --- MENU LATERAL E TEMAS ---
+  const sidebar = document.getElementById("sidebar"), overlay = document.getElementById("overlay");
+  document.getElementById("btnAbrirMenu").addEventListener("click", () => { sidebar.classList.add("aberta"); overlay.classList.add("ativa"); });
+  const fecharSidebar = () => { sidebar.classList.remove("aberta"); overlay.classList.remove("ativa"); };
+  document.getElementById("btnFecharMenu").addEventListener("click", fecharSidebar); overlay.addEventListener("click", fecharSidebar);
+
+  const aplicarTema = (tema) => { document.body.classList.toggle("tema-claro", tema === "claro"); localStorage.setItem("meuTemaEscolhido", tema); };
+  const temaSalvo = localStorage.getItem("meuTemaEscolhido"); if (temaSalvo) aplicarTema(temaSalvo);
+  document.getElementById("btnTemaClaro").addEventListener("click", () => aplicarTema("claro"));
+  document.getElementById("btnTemaEscuro").addEventListener("click", () => aplicarTema("escuro"));
+
+  // --- NAVEGAÇÃO ENTRE AS TELAS ---
+  function navegarPara(telaId, btnClicadoId) {
+      document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido"));
+      document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove("ativo"));
+      document.getElementById(telaId).classList.remove("escondido");
+      document.getElementById(btnClicadoId).classList.add("ativo");
+      fecharSidebar();
+  }
+  document.getElementById("navAgenda").addEventListener("click", () => navegarPara("telaAgenda", "navAgenda"));
+  document.getElementById("navWishlist").addEventListener("click", () => navegarPara("telaWishlist", "navWishlist"));
+  document.getElementById("navViagem").addEventListener("click", () => navegarPara("telaViagem", "navViagem"));
+
+  // --- LOGIN E SAIR ---
   const btnEntrar = document.getElementById("btnEntrar");
   const btnRegistrar = document.getElementById("btnRegistrar");
 
   btnRegistrar.addEventListener("click", async () => {
-      btnRegistrar.disabled = true;
-      btnRegistrar.innerText = "Criando...";
+      btnRegistrar.disabled = true; btnRegistrar.innerText = "Criando...";
       try {
           await createUserWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("senha").value);
           alert("Conta criada com sucesso!");
       } catch (error) {
-          // MOSTRA O ERRO ESPECÍFICO DO FIREBASE
           alert("Erro ao criar conta: " + error.message);
       } finally {
-          btnRegistrar.disabled = false;
-          btnRegistrar.innerText = "Criar Conta";
+          btnRegistrar.disabled = false; btnRegistrar.innerText = "Criar Conta";
       }
   });
 
   btnEntrar.addEventListener("click", async () => {
-      btnEntrar.disabled = true;
-      btnEntrar.innerText = "Verificando...";
+      btnEntrar.disabled = true; btnEntrar.innerText = "Verificando...";
       try {
           await signInWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("senha").value);
-          // O login bem-sucedido será tratado pelo onAuthStateChanged
       } catch (error) {
-          // MOSTRA O ERRO ESPECÍFICO DO FIREBASE
           alert("Erro ao entrar: " + error.message);
       } finally {
-          // Este bloco será executado dando erro ou não
-          btnEntrar.disabled = false;
-          btnEntrar.innerText = "Entrar";
+          btnEntrar.disabled = false; btnEntrar.innerText = "Entrar";
       }
   });
 
-  // --- O RESTANTE DO JAVASCRIPT CONTINUA O MESMO ---
-  function atualizarRelogio() { const agora = new Date(); document.getElementById("hora-atual").innerText = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); document.getElementById("data-atual").innerText = agora.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }); } setInterval(atualizarRelogio, 1000); atualizarRelogio();
-  const sidebar = document.getElementById("sidebar"), overlay = document.getElementById("overlay"); document.getElementById("btnAbrirMenu").addEventListener("click", () => { sidebar.classList.add("aberta"); overlay.classList.add("ativa"); }); const fecharSidebar = () => { sidebar.classList.remove("aberta"); overlay.classList.remove("ativa"); }; document.getElementById("btnFecharMenu").addEventListener("click", fecharSidebar); overlay.addEventListener("click", fecharSidebar);
-  const aplicarTema = (tema) => { document.body.classList.toggle("tema-claro", tema === "claro"); localStorage.setItem("meuTemaEscolhido", tema); }; const temaSalvo = localStorage.getItem("meuTemaEscolhido"); if (temaSalvo) aplicarTema(temaSalvo); document.getElementById("btnTemaClaro").addEventListener("click", () => aplicarTema("claro")); document.getElementById("btnTemaEscuro").addEventListener("click", () => aplicarTema("escuro"));
-  function navegarPara(telaId, btnClicadoId) { document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido")); document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove("ativo")); document.getElementById(telaId).classList.remove("escondido"); document.getElementById(btnClicadoId).classList.add("ativo"); fecharSidebar(); } document.getElementById("navAgenda").addEventListener("click", () => navegarPara("telaAgenda", "navAgenda")); document.getElementById("navWishlist").addEventListener("click", () => navegarPara("telaWishlist", "navWishlist")); document.getElementById("navViagem").addEventListener("click", () => navegarPara("telaViagem", "navViagem"));
   document.querySelectorAll(".btn-sair").forEach(btn => btn.addEventListener("click", () => signOut(auth)));
-  onAuthStateChanged(auth, (user) => { if (user) { document.getElementById("telaLogin").classList.add("escondido"); navegarPara("telaAgenda", "navAgenda"); document.getElementById("tituloAgenda").textContent = `Agenda de ${user.email.split('@')[0]}`; carregarTudo(user.uid); } else { document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido")); document.getElementById("telaLogin").classList.remove("escondido"); } });
-  const modalNovoItem = document.getElementById("modalNovoItem"); document.getElementById("btnAbrirModal").addEventListener("click", () => { document.getElementById("nomeItemModal").value = ""; document.getElementById("dataHoraModal").value = ""; modalNovoItem.classList.remove("escondido"); }); document.getElementById("btnCancelarModal").addEventListener("click", () => { modalNovoItem.classList.add("escondido"); });
-  async function carregarTudo(userId) { const listaComp = document.getElementById("listaCompromissos"), listaTar = document.getElementById("listaTarefas"); const listaWish = document.getElementById("listaWishlist"), listaViagem = document.getElementById("listaViagem"); listaComp.innerHTML = ""; listaTar.innerHTML = ""; listaWish.innerHTML = ""; listaViagem.innerHTML = ""; itensNaMemoria = []; const querySnapshot = await getDocs(query(collection(db, "itens"), where("userId", "==", userId))); let listaTemporaria = []; querySnapshot.forEach((doc) => listaTemporaria.push({ id: doc.id, ...doc.data() })); listaTemporaria.sort((a, b) => (a.concluida === b.concluida) ? 0 : a.concluida ? 1 : -1); listaTemporaria.forEach((it
+
+  onAuthStateChanged(auth, (user) => {
+      if (user) {
+          document.getElementById("telaLogin").classList.add("escondido"); 
+          navegarPara("telaAgenda", "navAgenda"); 
+          document.getElementById("tituloAgenda").textContent = `Agenda de ${user.email.split('@')[0]}`;
+          carregarTudo(user.uid);
+      } else {
+          document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido"));
+          document.getElementById("telaLogin").classList.remove("escondido"); 
+      }
+  });
+
+  // --- LÓGICA DO OLHO DA SENHA ---
+  const inputSenha = document.getElementById("senha");
+  const btnMostrarSenha = document.getElementById("btnMostrarSenha");
+
+  btnMostrarSenha.addEventListener("click", () => {
+      if (inputSenha.type === "password") {
+          inputSenha.type = "text";
+          btnMostrarSenha.innerText = "🙈";
+      } else {
+          inputSenha.type = "password";
+          btnMostrarSenha.innerText = "👁️";
+      }
+  });
+
+  // --- MODAL DA AGENDA ---
+  const modalNovoItem = document.getElementById("modalNovoItem");
+  document.getElementById("btnAbrirModal").addEventListener("click", () => { document.getElementById("nomeItemModal").value = ""; document.getElementById("dataHoraModal").value = ""; modalNovoItem.classList.remove("escondido"); });
+  document.getElementById("btnCancelarModal").addEventListener("click", () => { modalNovoItem.classList.add("escondido"); });
+
+  // --- CARREGAR DADOS DO BANCO ---
+  async function carregarTudo(userId) {
+    const listaComp = document.getElementById("listaCompromissos"), listaTar = document.getElementById("listaTarefas");
+    const listaWish = document.getElementById("listaWishlist"), listaViagem = document.getElementById("listaViagem");
+    
+    listaComp.innerHTML = ""; listaTar.innerHTML = ""; listaWish.innerHTML = ""; listaViagem.innerHTML = "";
+    itensNaMemoria = []; 
+    
+    const querySnapshot = await getDocs(query(collection(db, "itens"), where("userId", "==", userId)));
+    let listaTemporaria = []; querySnapshot.forEach((doc) => listaTemporaria.push({ id: doc.id, ...doc.data() }));
+    listaTemporaria.sort((a, b) => (a.concluida === b.concluida) ? 0 : a.concluida ? 1 : -1);
+    
+    listaTemporaria.forEach((item) => {
+        itensNaMemoria.push(item); 
+        let novoElemento = document.createElement("li");
+        
+        let htmlExtra = "";
+        let nomeExibicao = `<span>${item.nome}</span>`;
+        
+        if (item.tipo === "compromisso" || item.tipo === "tarefa") {
+            let d = item.dataHoraLembrete ? new Date(item.dataHoraLembrete).toLocaleString('pt-BR', {day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}) : "Sem horário";
+            htmlExtra = `<span class="data-hora-badge">🕒 ${d}</span>`;
+        } else if (item.tipo === "wishlist") {
+            if (item.categoria) { htmlExtra += `<span class="categoria-badge">${item.categoria}</span>`; }
+            if (item.link) { nomeExibicao += ` <a href="${item.link}" target="_blank" class="link-wishlist" title="Ir para a loja">🔗</a>`; }
+        }
+
+        novoElemento.innerHTML = `
+            <input type="checkbox" class="check-status" data-id="${item.id}" data-status="${item.concluida}" ${item.concluida ? "checked" : ""}>
+            <div class="info-item ${item.concluida ? "riscado" : ""}">
+                <div>${nomeExibicao}</div>
+                <div>${htmlExtra}</div>
+            </div>
+            <button class="btn-excluir" data-id="${item.id}">×</button>
+        `;
+
+        if (item.tipo === "compromisso") listaComp.appendChild(novoElemento);
+        else if (item.tipo === "tarefa") listaTar.appendChild(novoElemento);
+        else if (item.tipo === "wishlist") listaWish.appendChild(novoElemento);
+        else if (item.tipo === "viagem") listaViagem.appendChild(novoElemento);
+    });
+  }
+
+  // --- FUNÇÃO GLOBAL PARA SALVAR ---
+  async function salvarQualquerItem(tipo, nome, hora = null, categoria = null, link = null) {
+      const user = auth.currentUser; if (!user || nome === "") return;
+      try {
+          await addDoc(collection(db, "itens"), { 
+              nome: nome, tipo: tipo, concluida: false, 
+              dataHoraLembrete: hora, categoria: categoria, link: link, userId: user.uid 
+          });
+          carregarTudo(user.uid); 
+      } catch (e) { console.error(e); }
+  }
+
+  // Salvar pela Modal (Agenda)
+  document.getElementById("btnSalvarModal").addEventListener("click", () => {
+      salvarQualquerItem(document.getElementById("tipoItemModal").value, document.getElementById("nomeItemModal").value.trim(), document.getElementById("dataHoraModal").value);
+      modalNovoItem.classList.add("escondido");
+  });
+
+  // Salvar pela Wishlist
+  document.getElementById("btnAdicionarWishlist").addEventListener("click", () => {
+      const nome = document.getElementById("novaWishlist").value.trim();
+      const categoria = document.getElementById("categoriaWishlist").value.trim();
+      let link = document.getElementById("linkWishlist").value.trim();
+      if (link && !link.startsWith("http://") && !link.startsWith("https://")) { link = "https://" + link; }
+      salvarQualquerItem("wishlist", nome, null, categoria, link);
+      document.getElementById("novaWishlist").value = "";
+      document.getElementById("categoriaWishlist").value = "";
+      document.getElementById("linkWishlist").value = "";
+  });
+
+  // Salvar pela Viagem
+  document.getElementById("btnAdicionarViagem").addEventListener("click", () => {
+      salvarQualquerItem("viagem", document.getElementById("novaViagem").value.trim());
+      document.getElementById("novaViagem").value = "";
+  });
+
+  // --- CHECKBOX E EXCLUIR ---
+  document.addEventListener("click", async (event) => {
+      const user = auth.currentUser; if (!user) return;
+      if (event.target.classList.contains("btn-excluir")) {
+          if (confirm("Excluir item?")) { await deleteDoc(doc(db, "itens", event.target.getAttribute("data-id"))); carregarTudo(user.uid); }
+      }
+      if (event.target.classList.contains("check-status")) {
+          await updateDoc(doc(db, "itens", event.target.getAttribute("data-id")), { concluida: !(event.target.getAttribute("data-status") === "true") });
+          carregarTudo(user.uid);
+      }
+  });
+
+  // --- ALARME ---
+  setInterval(() => {
+      const agora = new Date();
+      const dataAtualFormatada = agora.getFullYear() + "-" + String(agora.getMonth() + 1).padStart(2, '0') + "-" + String(agora.getDate()).padStart(2, '0') + "T" + String(agora.getHours()).padStart(2, '0') + ":" + String(agora.getMinutes()).padStart(2, '0');
+      itensNaMemoria.forEach(item => {
+          if (!item.concluida && item.dataHoraLembrete === dataAtualFormatada) {
+              alert(`🔔 LEMBRETE: ${item.tipo.toUpperCase()}!\n\nVocê tem algo agendado agora: ${item.nome}`);
+          }
+      });
+  }, 60000);
+</script>
+
+</body>
+</html>
