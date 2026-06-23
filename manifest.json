@@ -1,0 +1,17 @@
+{
+  "name": "Minha Agenda Pro",
+  "short_name": "Agenda Pro",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#121212",
+  "theme_color": "#FF00E5",
+  "description": "Seu segundo cérebro para organizar compromissos e tarefas.",
+  "icons": [
+    {
+      "src": "https://cdn-icons-png.flaticon.com/512/3233/3233483.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}
