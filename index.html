@@ -58,28 +58,34 @@
         .box-add-lista button { width: 60px; margin-bottom: 0; font-size: 24px; padding: 0; }
 
         /* ===== CSS DO OLHO PERSONALIZADO ===== */
-        .caixa-senha { position: relative; width: 100%; }
-        .caixa-senha input { padding-right: 50px !important; }
+        .caixa-senha { position: relative; width: 100%; display: flex; align-items: center;}
+        .caixa-senha input { padding-right: 50px !important; margin-bottom: 0 !important; width: 100%;}
+        
         .btn-olho {
             position: absolute;
             right: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 28px;
-            height: 28px;
+            width: 24px;
+            height: 24px;
             background: none;
             border: none;
             cursor: pointer;
             padding: 0;
             margin: 0;
-            /* AQUI ESTÁ A MÁGICA: USANDO O ARQUIVO QUE VOCÊ SUBIU */
-            background-image: url('images/eye-open.png');
+            font-size: 0;
+            transition: opacity 0.2s;
+            /* ÍCONE DE OLHO FECHADO (PADRÃO) */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A0A0A0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24'%3E%3C/path%3E%3Cline x1='1' y1='1' x2='23' y2='23'%3E%3C/line%3E%3C/svg%3E");
             background-size: contain;
             background-repeat: no-repeat;
             background-position: center;
-            font-size: 0;
-            transition: opacity 0.2s;
         }
+
+        /* CLASSE QUE SERÁ ADICIONADA PELO JAVASCRIPT QUANDO A SENHA ESTIVER VISÍVEL */
+        .btn-olho.visivel {
+            /* ÍCONE DE OLHO ABERTO */
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23A0A0A0' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpath d='M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z'%3E%3C/path%3E%3Ccircle cx='12' cy='12' r='3'%3E%3C/circle%3E%3C/svg%3E");
+        }
+
         .btn-olho:hover { opacity: 0.7; }
     </style>
 </head>
@@ -88,7 +94,18 @@
     <button id="btnAbrirMenu" class="btn-abrir-menu">☰</button>
     <div id="sidebar" class="sidebar"> <button id="btnFecharMenu" class="btn-fechar-menu">×</button> <h3>📱 Navegação</h3> <button id="navAgenda" class="btn-nav ativo">📅 Dashboard</button> <button id="navWishlist" class="btn-nav">🛍️ Wishlist</button> <button id="navViagem" class="btn-nav">✈️ Checklist Viagem</button> <h3>⚙️ Temas</h3> <button id="btnTemaEscuro" class="btn-secundario">🌙 Dark Neon</button> <button id="btnTemaClaro" class="btn-principal">🌸 Pink Light</button> </div>
     <div id="overlay" class="overlay"></div>
-    <div id="telaLogin" class="container"> <h2>Login</h2> <input type="email" id="email" placeholder="Seu e-mail"> <div class="caixa-senha"> <input type="password" id="senha" placeholder="Sua senha"> <button id="btnMostrarSenha" type="button" class="btn-olho" title="Mostrar/Ocultar Senha"></button> </div> <button id="btnEntrar" class="btn-principal">Entrar</button> <button id="btnRegistrar" class="btn-secundario">Criar Conta</button> </div>
+    
+    <div id="telaLogin" class="container"> 
+        <h2>Login</h2> 
+        <input type="email" id="email" placeholder="Seu e-mail"> 
+        <div class="caixa-senha" style="margin-bottom: 15px;"> 
+            <input type="password" id="senha" placeholder="Sua senha"> 
+            <button id="btnMostrarSenha" type="button" class="btn-olho" title="Mostrar/Ocultar Senha"></button> 
+        </div> 
+        <button id="btnEntrar" class="btn-principal">Entrar</button> 
+        <button id="btnRegistrar" class="btn-secundario">Criar Conta</button> 
+    </div>
+    
     <div id="telaAgenda" class="container escondido tela-app"> <h2 id="tituloAgenda">Sua Agenda</h2> <div id="bloco-relogio"><div id="hora-atual">00:00</div><div id="data-atual">Carregando...</div></div> <h3>⏰ Compromissos</h3><ul id="listaCompromissos"></ul> <h3>✅ Tarefas do Dia</h3><ul id="listaTarefas"></ul> <button class="btn-sair">Sair da Conta</button> <button id="btnAbrirModal" class="btn-flutuante">+</button> </div>
     <div id="telaWishlist" class="container escondido tela-app"> <h2>🛍️ Minha Wishlist</h2> <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Tudo o que eu quero comprar!</p> <div style="margin-bottom: 15px;"> <input type="text" id="novaWishlist" placeholder="O que você deseja? (Obrigatório)"> <div style="display: flex; gap: 10px;"> <input type="text" id="categoriaWishlist" placeholder="Categoria (ex: Roupas)" style="flex-grow: 1;"> <input type="url" id="linkWishlist" placeholder="Link da loja (Opcional)" style="flex-grow: 2;"> </div> <button id="btnAdicionarWishlist" class="btn-principal">Adicionar à Wishlist</button> </div> <ul id="listaWishlist"></ul> </div>
     <div id="telaViagem" class="container escondido tela-app"> <h2>✈️ Mala de Viagem</h2> <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Não esqueça de nada!</p> <div class="box-add-lista"> <input type="text" id="novaViagem" placeholder="Item para colocar na mala..."> <button id="btnAdicionarViagem" class="btn-principal">+</button> </div> <ul id="listaViagem"></ul> </div>
@@ -103,16 +120,17 @@
   const app = initializeApp(firebaseConfig); const db = getFirestore(app); const auth = getAuth(app);
   let itensNaMemoria = []; 
 
-  // --- LÓGICA DO OLHO DA SENHA (com imagem) ---
+  // --- LÓGICA DO OLHO DA SENHA ---
   const inputSenha = document.getElementById("senha");
   const btnMostrarSenha = document.getElementById("btnMostrarSenha");
+  
   btnMostrarSenha.addEventListener("click", () => {
       if (inputSenha.type === "password") {
           inputSenha.type = "text";
-          btnMostrarSenha.style.opacity = "0.5";
+          btnMostrarSenha.classList.add("visivel"); // Adiciona a classe que muda o background-image no CSS
       } else {
           inputSenha.type = "password";
-          btnMostrarSenha.style.opacity = "1";
+          btnMostrarSenha.classList.remove("visivel"); // Remove a classe para voltar ao olho fechado
       }
   });
 
