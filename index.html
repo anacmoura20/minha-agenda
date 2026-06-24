@@ -6,14 +6,13 @@
     <meta name="theme-color" content="#FF00E5">
     <link rel="manifest" href="manifest.json">
     <link rel="apple-touch-icon" href="https://i.pinimg.com/736x/05/98/65/059865c953000131f86bb74a8e5981a2.jpg">
-
     <title>Minha Agenda Pro</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
     <style>
+        /* O CSS continua o mesmo */
         :root { --bg-page: #121212; --bg-card: #1E1E1E; --cor-destaque: #FF00E5; --texto-principal: #EAEAEA; --texto-secundario: #A0A0A0; --cor-borda: #333333; --sombra: rgba(255, 0, 229, 0.1); }
         body.tema-claro { --bg-page: #FEF6F6; --bg-card: #FFFFFF; --cor-destaque: #FF8FAB; --texto-principal: #4A4A4A; --texto-secundario: #888888; --cor-borda: #FADADD; --sombra: rgba(0, 0, 0, 0.05); }
         body { font-family: 'Inter', sans-serif; background-color: var(--bg-page); color: var(--texto-principal); margin: 0; padding: 20px; padding-bottom: 80px; display: flex; justify-content: center; align-items: flex-start; min-height: 100vh; transition: background-color 0.3s, color 0.3s; }
@@ -61,135 +60,123 @@
         .box-add-lista { display: flex; gap: 10px; margin-bottom: 15px; }
         .box-add-lista input { margin-bottom: 0; }
         .box-add-lista button { width: 60px; margin-bottom: 0; font-size: 24px; padding: 0; }
-
-        /* Estilo do Olho (FontAwesome) */
         .caixa-senha { position: relative; width: 100%; }
         .caixa-senha input { padding-right: 50px !important; }
         .btn-olho { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: none; border: none; color: var(--texto-secundario); font-size: 1.3rem; cursor: pointer; padding: 0; margin: 0; width: auto; transition: color 0.2s; }
         .btn-olho:hover { color: var(--cor-destaque); }
-        
-        /* Etiqueta Compartilhada */
         .badge-casal { font-size: 0.7rem; color: #fff; background-color: var(--cor-destaque); padding: 3px 8px; border-radius: 12px; font-weight: bold; margin-bottom: 10px; display: inline-block; }
     </style>
 </head>
 <body>
-
+    <!-- HTML continua o mesmo -->
     <button id="btnAbrirMenu" class="btn-abrir-menu">☰</button>
     <div id="sidebar" class="sidebar"> <button id="btnFecharMenu" class="btn-fechar-menu">×</button> <h3>📱 Navegação</h3> <button id="navAgenda" class="btn-nav ativo">📅 Dashboard</button> <button id="navWishlist" class="btn-nav">🛍️ Wishlist</button> <button id="navViagem" class="btn-nav">✈️ Checklist Viagem</button> <h3>⚙️ Temas</h3> <button id="btnTemaEscuro" class="btn-secundario">🌙 Dark Neon</button> <button id="btnTemaClaro" class="btn-principal">🌸 Pink Light</button> </div>
     <div id="overlay" class="overlay"></div>
-    
-    <div id="telaLogin" class="container"> 
-        <h2>Login</h2> 
-        <input type="email" id="email" placeholder="Seu e-mail"> 
-        <div class="caixa-senha"> 
-            <input type="password" id="senha" placeholder="Sua senha"> 
-            <button id="btnMostrarSenha" type="button" class="btn-olho" title="Mostrar/Ocultar Senha"><i class="fa-solid fa-eye"></i></button> 
-        </div> 
-        <button id="btnEntrar" class="btn-principal">Entrar</button> <button id="btnRegistrar" class="btn-secundario">Criar Conta</button> 
-    </div>
-    
+    <div id="telaLogin" class="container"> <h2>Login</h2> <input type="email" id="email" placeholder="Seu e-mail"> <div class="caixa-senha"> <input type="password" id="senha" placeholder="Sua senha"> <button id="btnMostrarSenha" type="button" class="btn-olho" title="Mostrar/Ocultar Senha"><i class="fa-solid fa-eye"></i></button> </div> <button id="btnEntrar" class="btn-principal">Entrar</button> <button id="btnRegistrar" class="btn-secundario">Criar Conta</button> </div>
     <div id="telaAgenda" class="container escondido tela-app"> <h2 id="tituloAgenda">Sua Agenda</h2> <div id="bloco-relogio"><div id="hora-atual">00:00</div><div id="data-atual">Carregando...</div></div> <h3>⏰ Compromissos</h3><ul id="listaCompromissos"></ul> <h3>✅ Tarefas do Dia</h3><ul id="listaTarefas"></ul> <button class="btn-sair">Sair da Conta</button> <button id="btnAbrirModal" class="btn-flutuante">+</button> </div>
     <div id="telaWishlist" class="container escondido tela-app"> <h2>🛍️ Minha Wishlist</h2> <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Tudo o que eu quero comprar!</p> <div style="margin-bottom: 15px;"> <input type="text" id="novaWishlist" placeholder="O que você deseja? (Obrigatório)"> <div style="display: flex; gap: 10px;"> <input type="text" id="categoriaWishlist" placeholder="Categoria (ex: Roupas)" style="flex-grow: 1;"> <input type="url" id="linkWishlist" placeholder="Link da loja (Opcional)" style="flex-grow: 2;"> </div> <button id="btnAdicionarWishlist" class="btn-principal">Adicionar à Wishlist</button> </div> <ul id="listaWishlist"></ul> </div>
-    <div id="telaViagem" class="container escondido tela-app"> 
-        <h2>✈️ Mala de Viagem</h2> 
-        <div style="text-align: center;"><span class="badge-casal">💞 Lista Compartilhada</span></div>
-        <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Não esqueça de nada! (Sincronizado em tempo real)</p> 
-        <div class="box-add-lista"> <input type="text" id="novaViagem" placeholder="Item para colocar na mala..."> <button id="btnAdicionarViagem" class="btn-principal">+</button> </div> <ul id="listaViagem"></ul> 
-    </div>
+    <div id="telaViagem" class="container escondido tela-app"> <h2>✈️ Mala de Viagem</h2> <div style="text-align: center;"><span class="badge-casal">💞 Lista do Casal</span></div> <p style="color: var(--texto-secundario); font-size: 0.9rem; text-align: center;">Sincronizado em tempo real com o Vi!</p> <div class="box-add-lista"> <input type="text" id="novaViagem" placeholder="Item para colocar na mala..."> <button id="btnAdicionarViagem" class="btn-principal">+</button> </div> <ul id="listaViagem"></ul> </div>
     <div id="modalNovoItem" class="modal-overlay escondido"> <div class="container"> <h2 style="margin-bottom: 20px;">Novo Item</h2> <select id="tipoItemModal"> <option value="compromisso">⏰ Compromisso</option> <option value="tarefa">✅ Tarefa</option> </select> <input type="text" id="nomeItemModal" placeholder="O que você precisa fazer/lembrar?"> <input type="datetime-local" id="dataHoraModal"> <button id="btnSalvarModal" class="btn-principal">Salvar</button> <button id="btnCancelarModal" class="btn-secundario">Cancelar</button> </div> </div>
 
 <script type="module">
-  // ADICIONAMOS O "onSnapshot" PARA O TEMPO REAL!
   import { initializeApp } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-app.js";
   import { getFirestore, collection, addDoc, doc, deleteDoc, updateDoc, query, where, onSnapshot } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-firestore.js";
   import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/12.15.0/firebase-auth.js";
-  
-  const firebaseConfig = { apiKey: "AIzaSyClPqOh6AiRTi8Dca0qT0CM4vHwGFWm35k", authDomain: "app-agenda-19147.firebaseapp.com", projectId: "app-agenda-19147", storageBucket: "app-agenda-19147.firebasestorage.app", messagingSenderId: "1039485282986", appId: "1:1039485282986:web:e4b68ce7a10a9f96243ed3" };
+
+  const firebaseConfig = { /* Suas chaves do Firebase */ 
+      apiKey: "AIzaSyClPqOh6AiRTi8Dca0qT0CM4vHwGFWm35k", authDomain: "app-agenda-19147.firebaseapp.com", projectId: "app-agenda-19147", storageBucket: "app-agenda-19147.firebasestorage.app", messagingSenderId: "1039485282986", appId: "1:1039485282986:web:e4b68ce7a10a9f96243ed3"
+  };
   const app = initializeApp(firebaseConfig); const db = getFirestore(app); const auth = getAuth(app);
   
-  // Memória separada para os seus itens e os itens do casal
-  let dadosPrivados = [];
-  let dadosCompartilhados = [];
+  // ================= A LISTA DE PERMISSÕES =================
+  // COLE AQUI O SEU UserID e o UserID do Vi
+  const IDS_PERMITIDOS_VIAGEM = [
+      "SEU_USER_ID_AQUI", 
+      "USER_ID_DO_VI_AQUI" 
+  ];
+  // ========================================================
+  
+  let dadosPrivados = [], dadosCompartilhados = [];
 
-  // Lógica do Olho
+  // Lógica do Olho...
   const inputSenha = document.getElementById("senha"), btnMostrarSenha = document.getElementById("btnMostrarSenha");
-  btnMostrarSenha.addEventListener("click", () => {
-      if (inputSenha.type === "password") { inputSenha.type = "text"; btnMostrarSenha.innerHTML = '<i class="fa-solid fa-eye-slash"></i>'; } 
-      else { inputSenha.type = "password"; btnMostrarSenha.innerHTML = '<i class="fa-solid fa-eye"></i>'; }
-  });
+  btnMostrarSenha.addEventListener("click", () => { if (inputSenha.type === "password") { inputSenha.type = "text"; btnMostrarSenha.innerHTML = '<i class="fa-solid fa-eye-slash"></i>'; } else { inputSenha.type = "password"; btnMostrarSenha.innerHTML = '<i class="fa-solid fa-eye"></i>'; } });
 
-  // Relógio e Navegação
+  // O resto do código continua igual...
   function atualizarRelogio() { const agora = new Date(); document.getElementById("hora-atual").innerText = agora.toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }); document.getElementById("data-atual").innerText = agora.toLocaleDateString('pt-BR', { weekday: 'long', day: 'numeric', month: 'long' }); } setInterval(atualizarRelogio, 1000); atualizarRelogio();
   const sidebar = document.getElementById("sidebar"), overlay = document.getElementById("overlay"); document.getElementById("btnAbrirMenu").addEventListener("click", () => { sidebar.classList.add("aberta"); overlay.classList.add("ativa"); }); const fecharSidebar = () => { sidebar.classList.remove("aberta"); overlay.classList.remove("ativa"); }; document.getElementById("btnFecharMenu").addEventListener("click", fecharSidebar); overlay.addEventListener("click", fecharSidebar);
   const aplicarTema = (tema) => { document.body.classList.toggle("tema-claro", tema === "claro"); localStorage.setItem("meuTemaEscolhido", tema); }; const temaSalvo = localStorage.getItem("meuTemaEscolhido"); if (temaSalvo) aplicarTema(temaSalvo); document.getElementById("btnTemaClaro").addEventListener("click", () => aplicarTema("claro")); document.getElementById("btnTemaEscuro").addEventListener("click", () => aplicarTema("escuro"));
   function navegarPara(telaId, btnClicadoId) { document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido")); document.querySelectorAll('.btn-nav').forEach(b => b.classList.remove("ativo")); document.getElementById(telaId).classList.remove("escondido"); document.getElementById(btnClicadoId).classList.add("ativo"); fecharSidebar(); } document.getElementById("navAgenda").addEventListener("click", () => navegarPara("telaAgenda", "navAgenda")); document.getElementById("navWishlist").addEventListener("click", () => navegarPara("telaWishlist", "navWishlist")); document.getElementById("navViagem").addEventListener("click", () => navegarPara("telaViagem", "navViagem"));
-  
-  // Login
   const btnEntrar = document.getElementById("btnEntrar"); const btnRegistrar = document.getElementById("btnRegistrar");
-  btnRegistrar.addEventListener("click", async () => { btnRegistrar.disabled = true; btnRegistrar.innerText = "Criando..."; try { await createUserWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("senha").value); alert("Conta criada com sucesso!"); } catch (error) { alert("Erro ao criar conta: " + error.message); } finally { btnRegistrar.disabled = false; btnRegistrar.innerText = "Criar Conta"; } });
+  btnRegistrar.addEventListener("click", async () => { btnRegistrar.disabled = true; btnRegistrar.innerText = "Criando..."; try { await createUserWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("senha").value); alert("Conta criada! Seu User ID foi copiado para a área de transferência. Guarde-o!"); navigator.clipboard.writeText(auth.currentUser.uid); } catch (error) { alert("Erro ao criar conta: " + error.message); } finally { btnRegistrar.disabled = false; btnRegistrar.innerText = "Criar Conta"; } });
   btnEntrar.addEventListener("click", async () => { btnEntrar.disabled = true; btnEntrar.innerText = "Verificando..."; try { await signInWithEmailAndPassword(auth, document.getElementById("email").value, document.getElementById("senha").value); } catch (error) { alert("Erro ao entrar: " + error.message); } finally { btnEntrar.disabled = false; btnEntrar.innerText = "Entrar"; } });
   document.querySelectorAll(".btn-sair").forEach(btn => btn.addEventListener("click", () => signOut(auth)));
   
-  // === A MAGIA DO TEMPO REAL ACONTECE AQUI ===
+  // === LÓGICA DE CARREGAMENTO ATUALIZADA ===
   function renderizarTudoNaTela() {
     const listaComp = document.getElementById("listaCompromissos"), listaTar = document.getElementById("listaTarefas");
     const listaWish = document.getElementById("listaWishlist"), listaViagem = document.getElementById("listaViagem");
     listaComp.innerHTML = ""; listaTar.innerHTML = ""; listaWish.innerHTML = ""; listaViagem.innerHTML = "";
     
-    // Junta as suas listas com a lista do casal
     let todosOsItens = [...dadosPrivados, ...dadosCompartilhados];
     todosOsItens.sort((a, b) => (a.concluida === b.concluida) ? 0 : a.concluida ? 1 : -1);
     
     todosOsItens.forEach((item) => {
         let novoElemento = document.createElement("li");
-        let htmlExtra = ""; let nomeExibicao = `<span>${item.nome}</span>`;
+        let htmlExtra = "", nomeExibicao = `<span>${item.nome}</span>`;
         if (item.tipo === "compromisso" || item.tipo === "tarefa") { let d = item.dataHoraLembrete ? new Date(item.dataHoraLembrete).toLocaleString('pt-BR', {day: '2-digit', month: '2-digit', hour: '2-digit', minute: '2-digit'}) : "Sem horário"; htmlExtra = `<span class="data-hora-badge">🕒 ${d}</span>`; } else if (item.tipo === "wishlist") { if (item.categoria) { htmlExtra += `<span class="categoria-badge">${item.categoria}</span>`; } if (item.link) { nomeExibicao += ` <a href="${item.link}" target="_blank" class="link-wishlist" title="Ir para a loja">🔗</a>`; } }
         novoElemento.innerHTML = `<input type="checkbox" class="check-status" data-id="${item.id}" data-status="${item.concluida}" ${item.concluida ? "checked" : ""}> <div class="info-item ${item.concluida ? "riscado" : ""}"> <div>${nomeExibicao}</div> <div>${htmlExtra}</div> </div> <button class="btn-excluir" data-id="${item.id}">×</button>`;
-        if (item.tipo === "compromisso") listaComp.appendChild(novoElemento); else if (item.tipo === "tarefa") listaTar.appendChild(novoElemento); else if (item.tipo === "wishlist") listaWish.appendChild(novoElemento); else if (item.tipo === "viagem") listaViagem.appendChild(novoElemento);
+        if (item.tipo === "compromisso") listaComp.appendChild(novoElemento); else if (item.tipo === "tarefa") listaTar.appendChild(novoElemento); else if (item.tipo === "wishlist") listaWish.appendChild(novoElemento); else if (item.tipo === "viagem") listaViagem.appendChild(novoElemento); 
     });
   }
 
   function ligarSincronizacaoEmTempoReal(userId) {
-      // 1. Ouve os SEUS itens privados (Agenda e Wishlist)
-      const queryPrivada = query(collection(db, "itens"), where("userId", "==", userId));
-      onSnapshot(queryPrivada, (snapshot) => {
+      // 1. Ouve os SEUS itens privados
+      onSnapshot(query(collection(db, "itens"), where("ownerId", "==", userId)), (snapshot) => { 
           dadosPrivados = [];
           snapshot.forEach((doc) => dadosPrivados.push({ id: doc.id, ...doc.data() }));
           renderizarTudoNaTela();
       });
 
-      // 2. Ouve os itens da CAIXA DO CASAL (Viagem)
-      const queryCasal = query(collection(db, "itens"), where("userId", "==", "compartilhado_casal"));
-      onSnapshot(queryCasal, (snapshot) => {
-          dadosCompartilhados = [];
-          snapshot.forEach((doc) => dadosCompartilhados.push({ id: doc.id, ...doc.data() }));
-          renderizarTudoNaTela();
-      });
+      // 2. Ouve a lista de viagem COMPARTILHADA
+      if (IDS_PERMITIDOS_VIAGEM.includes(userId)) {
+          onSnapshot(query(collection(db, "itens"), where("listId", "==", "viagem_casal_secreta")), (snapshot) => {
+              dadosCompartilhados = [];
+              snapshot.forEach((doc) => dadosCompartilhados.push({ id: doc.id, ...doc.data() }));
+              renderizarTudoNaTela();
+          });
+      }
   }
 
   onAuthStateChanged(auth, (user) => { 
       if (user) { 
-          document.getElementById("telaLogin").classList.add("escondido"); navegarPara("telaAgenda", "navAgenda"); 
+          document.getElementById("telaLogin").classList.add("escondido"); 
+          navegarPara("telaAgenda", "navAgenda"); 
           document.getElementById("tituloAgenda").textContent = `Agenda de ${user.email.split('@')[0]}`; 
-          ligarSincronizacaoEmTempoReal(user.uid); // LIGA O TEMPO REAL ASSIM QUE LOGAR
+          ligarSincronizacaoEmTempoReal(user.uid);
       } else { 
-          document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido")); document.getElementById("telaLogin").classList.remove("escondido"); 
+          document.querySelectorAll('.tela-app').forEach(t => t.classList.add("escondido")); 
+          document.getElementById("telaLogin").classList.remove("escondido"); 
       } 
   });
-
+  
   const modalNovoItem = document.getElementById("modalNovoItem"); document.getElementById("btnAbrirModal").addEventListener("click", () => { document.getElementById("nomeItemModal").value = ""; document.getElementById("dataHoraModal").value = ""; modalNovoItem.classList.remove("escondido"); }); document.getElementById("btnCancelarModal").addEventListener("click", () => { modalNovoItem.classList.add("escondido"); });
 
-  // === SALVAR NO BANCO (AGORA INTELIGENTE) ===
+  // === FUNÇÃO DE SALVAR ATUALIZADA ===
   async function salvarQualquerItem(tipo, nome, hora = null, categoria = null, link = null) { 
-      const user = auth.currentUser; if (!user || nome === "") return; 
+      const user = auth.currentUser; if (!user || nome === "") return;
       
-      // Se for viagem, joga na caixa do casal. Se não, joga na sua caixa privada.
-      const donoDaLista = (tipo === "viagem") ? "compartilhado_casal" : user.uid;
+      let dadosParaSalvar = { nome, tipo, concluida: false, dataHoraLembrete: hora, categoria, link };
+      
+      // Se for viagem, usa o listId secreto. Se não, usa o seu ownerId privado.
+      if (tipo === "viagem") {
+          dadosParaSalvar.listId = "viagem_casal_secreta";
+      } else {
+          dadosParaSalvar.ownerId = user.uid;
+      }
 
       try { 
-          // Note que não precisamos mais mandar atualizar a tela depois de salvar.
-          // O "onSnapshot" escuta a mudança no banco do Google e atualiza a tela sozinho!
-          await addDoc(collection(db, "itens"), { nome: nome, tipo: tipo, concluida: false, dataHoraLembrete: hora, categoria: categoria, link: link, userId: donoDaLista }); 
+          await addDoc(collection(db, "itens"), dadosParaSalvar); 
       } catch (e) { console.error(e); } 
   }
 
@@ -197,14 +184,7 @@
   document.getElementById("btnAdicionarWishlist").addEventListener("click", () => { const nome = document.getElementById("novaWishlist").value.trim(); const categoria = document.getElementById("categoriaWishlist").value.trim(); let link = document.getElementById("linkWishlist").value.trim(); if (link && !link.startsWith("http://") && !link.startsWith("https://")) { link = "https://" + link; } salvarQualquerItem("wishlist", nome, null, categoria, link); document.getElementById("novaWishlist").value = ""; document.getElementById("categoriaWishlist").value = ""; document.getElementById("linkWishlist").value = ""; });
   document.getElementById("btnAdicionarViagem").addEventListener("click", () => { salvarQualquerItem("viagem", document.getElementById("novaViagem").value.trim()); document.getElementById("novaViagem").value = ""; });
   
-  // Atualizar (Checkbox) e Excluir
-  document.addEventListener("click", async (event) => { 
-      const user = auth.currentUser; if (!user) return; 
-      // Também não precisamos atualizar a tela após excluir ou marcar o checkbox. O tempo real cuida de tudo.
-      if (event.target.classList.contains("btn-excluir")) { if (confirm("Excluir item?")) { await deleteDoc(doc(db, "itens", event.target.getAttribute("data-id"))); } } 
-      if (event.target.classList.contains("check-status")) { await updateDoc(doc(db, "itens", event.target.getAttribute("data-id")), { concluida: !(event.target.getAttribute("data-status") === "true") }); } 
-  });
-
+  document.addEventListener("click", async (event) => { const user = auth.currentUser; if (!user) return; if (event.target.classList.contains("btn-excluir")) { if (confirm("Excluir item?")) { await deleteDoc(doc(db, "itens", event.target.getAttribute("data-id"))); } } if (event.target.classList.contains("check-status")) { await updateDoc(doc(db, "itens", event.target.getAttribute("data-id")), { concluida: !(event.target.getAttribute("data-status") === "true") }); } });
   setInterval(() => { const agora = new Date(); const dataAtualFormatada = agora.getFullYear() + "-" + String(agora.getMonth() + 1).padStart(2, '0') + "-" + String(agora.getDate()).padStart(2, '0') + "T" + String(agora.getHours()).padStart(2, '0') + ":" + String(agora.getMinutes()).padStart(2, '0'); [...dadosPrivados, ...dadosCompartilhados].forEach(item => { if (!item.concluida && item.dataHoraLembrete === dataAtualFormatada) { alert(`🔔 LEMBRETE: ${item.tipo.toUpperCase()}!\n\nVocê tem algo agendado agora: ${item.nome}`); } }); }, 60000);
 </script>
 
